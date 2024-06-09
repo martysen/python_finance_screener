@@ -23,7 +23,7 @@ n_day_hist_volatility_list = [10,20,50,100,180]
 
 # List of stocks to be evaluated
 # later on this list needs to be populated from the screener
-ranked_stocks = ["MARA"]
+ranked_stocks = ["GDDY"]
 
 
 
@@ -102,7 +102,7 @@ for item in ranked_stocks:
     # ranked_options_dict[item] = dataframe
     # ranked_options_df_final = ranked_options_df_final.append(dataframe)
     # ranked_options_df_final = pd.concat([ranked_options_df_final, dataframe], ignore_index=True)
-    dataframe.to_csv('./final_rank.csv', mode='a', index=False, header=None)
+    dataframe.to_csv('./screeneroutput/final_rank.csv', mode='a', index=False, header=None)
 
 # Print the ranked options dictionary
 # ranked_options_df_final.sort_values(by='Value', ascending=False, inplace=True)

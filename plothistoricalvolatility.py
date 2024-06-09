@@ -19,7 +19,7 @@ def plot_change_in_historical_volatility(stock_ticker, hist_vola_dict):
 
     ax.set_xticklabels(keys, rotation=30)  # Set x-axis tick labels with rotation
 
-    figure_file_title = stock_ticker + "  annualized historical volatility trend"
+    figure_file_title = "./screeneroutput/" + stock_ticker + "  annualized historical volatility trend"
     plt.savefig(figure_file_title, bbox_inches='tight')
     # plt.show()  # Show plot
     # plt.close(fig)  # Close the figure to release resources
