@@ -82,14 +82,17 @@ for item in ranked_stocks:
     print("**** Start Historical Volatility Computation ****\n")
     print("**** **** **** *****  \n")
     volatility_info_dict = dict()
+    volatility_info_dict_SPY = dict()
     for n_day_index in n_day_hist_volatility_list:
         # not caring about capturing returned value
         # print statement in the function will print
         # if you need to process data then modify the return here
         volatility_info_list = compute_historical_volatility(item, n_day_index)
+        volatility_info_list_SPY = compute_historical_volatility("SPY", n_day_index)
         volatility_info_dict[n_day_index] = volatility_info_list
+        volatility_info_dict_SPY[n_day_index] = volatility_info_list_SPY
     
-    plot_change_in_historical_volatility(item, volatility_info_dict)
+    plot_change_in_historical_volatility(item, volatility_info_dict, volatility_info_dict_SPY)
 
 
 
