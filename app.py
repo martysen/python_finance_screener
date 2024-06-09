@@ -23,7 +23,7 @@ n_day_hist_volatility_list = [10,20,50,100,180]
 
 # List of stocks to be evaluated
 # later on this list needs to be populated from the screener
-ranked_stocks = ["DOCU"]
+ranked_stocks = ["MARA"]
 
 
 
