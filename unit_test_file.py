@@ -4,6 +4,9 @@ from pcratio import compute_pcr_ratio
 from optionsupportresistance import compute_option_support_resistance_bands
 from requests_html import *
 from yahoo_fin import stock_info as si
+import datetime
+import re
+import pandas as pd
 
 from yahoo_fin import options
 # test_output = compute_theoritical_option_price("abc", 41, 40, 90, "2024-09-20")
@@ -48,9 +51,9 @@ from yahoo_fin import options
 # test = si.get_stats_valuation('AAPL') # quaterly FUND ANALYSIS trends IMP!
 # test = si.get_undervalued_large_caps() # IMPORTANT. you can grab by P/E ratio here?
 # test = si.tickers_dow() # scrapes wikipedia
-# test = si.tickers_nasdaq() # ftp://ftp.nasdaqtrader.com/SymbolDirectory/.
-test = options.get_expiration_dates('MCD')
-print("{}".format(test))
+test = si.tickers_nasdaq() # ftp://ftp.nasdaqtrader.com/SymbolDirectory/.
+# test = options.get_expiration_dates('MCD')
+# print("{}".format(test))
 
 
 # date = "2024-06-07"
@@ -58,3 +61,28 @@ print("{}".format(test))
 # ratio = compute_pcr_ratio("MCD", date)
 # print("\n Computed ratio is {}".format(ratio))
 
+
+# def get_market_sectors_details():
+#   site = "https://finance.yahoo.com/sectors/"
+
+#   session = HTMLSession()
+#   resp = session.get(site)
+    
+#   html = resp.html.raw_html.decode()
+#   # grab all sector names, sector weight, and sector YTD
+#   pattern_sector_names = r'<td class="name svelte-xcf6xc">(.*?)</td>'
+#   sector_names = re.findall(pattern_sector_names, html)
+#   pattern_sector_market_weight = r'<span class="svelte-xcf6xc">(.*?)</span>'
+#   sector_weight = re.findall(pattern_sector_market_weight, html)
+#   pattern_sector_yield = r'<td class=".*?\bdisappear\b.*?">(.*?)</td>'
+#   sector_yield = re.findall(pattern_sector_yield, html)
+
+#   # put all in dataframe
+#   sectors_dataframe = pd.DataFrame({
+#     'Sectors' : sector_names,
+#     'Market Weight': sector_weight,
+#     'YTD': sector_yield
+#   })
+#   return sectors_dataframe
+
+print(si.get_market_sectors_details())

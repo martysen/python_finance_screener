@@ -23,7 +23,7 @@ n_day_hist_volatility_list = [10,20,50,100,180]
 
 # List of stocks to be evaluated
 # later on this list needs to be populated from the screener
-ranked_stocks = ["GDDY"]
+ranked_stocks = ["QQQ"]
 
 
 
@@ -117,3 +117,17 @@ for item in ranked_stocks:
 # ranked_options_df_final.sort_values(by='Value', ascending=False, inplace=True)
 # print("[app.py] Ranked options df is \n {}".format(ranked_options_df_final))
 print("Teminated success!")
+
+# warning to not buy on a monday or friday 
+current_date = datetime.date.today()
+day_of_week = current_date.weekday()
+
+# Convert the day of the week to a string
+days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+current_day_of_week = days_of_week[day_of_week]
+print("Today is:", current_day_of_week)
+
+if current_day_of_week in ['Monday', 'Friday']:
+  print("** WARNING ** do not buy on Monday or Friday. Wait for dip! ")
+
+
