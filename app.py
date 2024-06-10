@@ -15,7 +15,7 @@ from historicalvolatility import compute_historical_volatility
 from optionsupportresistance import compute_option_support_resistance_bands
 import pandas as pd
 from plothistoricalvolatility import plot_change_in_historical_volatility
-# from yahoo_fin import options
+from yahoo_fin import options
 from datetime import datetime
 
 n_day_hist_volatility_list = [10,20,50,100,180]
@@ -33,6 +33,12 @@ ranked_options_df_final = pd.DataFrame(columns=['Key', 'Value'])
 # Iterate through each stock
 for item in ranked_stocks:
     print("Starting evaluation for stock ticker - {} ".format(item))
+    print("**** **** **** ****")
+    print("** Available Expiration Dates **")
+    print("**** **** **** ****")
+    dates = options.get_expiration_dates(item)
+    for date in dates: 
+        print("{}".format(date))
     
     # Ensure expiration date choice is at least 3 weeks from the current date
     time_remaining_days = 0

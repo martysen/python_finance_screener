@@ -49,7 +49,7 @@ from yahoo_fin import options
 # test = si.get_undervalued_large_caps() # IMPORTANT. you can grab by P/E ratio here?
 # test = si.tickers_dow() # scrapes wikipedia
 # test = si.tickers_nasdaq() # ftp://ftp.nasdaqtrader.com/SymbolDirectory/.
-test = options.get_expiration_dates('AMD')
+test = options.get_expiration_dates('MCD')
 print("{}".format(test))
 
 
