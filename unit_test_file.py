@@ -27,6 +27,7 @@ from yahoo_fin import options
 # test = si.get_postmarket_price('AMD')
 # test = si.get_quote_data('AMD')
 # test = si.get_quote_table('AAPL', dict_result=True) # treating a dataframe as a list? see method
+# test = si.tickers_sp500()
 
 # not required
 # test = si.get_market_status() # NOT REQUIRED ANYWAYS
@@ -43,7 +44,12 @@ from yahoo_fin import options
 # test = si.get_futures()  
 # test = si.get_holders('AMD') # can note how much % of shares held by All insiders 
 # test= si.get_live_price('AMD')
-test = si.get_stats('AAPL')
+# test = si.get_stats('AAPL') # contains VALUABLE FUNDAMENTAL ANALYSIS FIELDS
+# test = si.get_stats_valuation('AAPL') # quaterly FUND ANALYSIS trends IMP!
+# test = si.get_undervalued_large_caps() # IMPORTANT. you can grab by P/E ratio here?
+# test = si.tickers_dow() # scrapes wikipedia
+# test = si.tickers_nasdaq() # ftp://ftp.nasdaqtrader.com/SymbolDirectory/.
+test = options.get_expiration_dates('AMD')
 print("{}".format(test))
 
 

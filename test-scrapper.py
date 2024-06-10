@@ -1,42 +1,36 @@
-import requests
+from requests_html import HTMLSession
 from bs4 import BeautifulSoup
-import pandas as pd
 
-def scrape_balance_sheet(url):
-    """
-    Scrapes the balance sheet data from the given Yahoo Finance URL.
+def build_options_url(ticker):
+    return f'https://finance.yahoo.com/quote/{ticker}/options?p={ticker}'
 
-    Parameters:
-    url (str): The URL of the Yahoo Finance balance sheet page.
-
-    Returns:
-    pd.DataFrame: A DataFrame containing the balance sheet data.
-    """
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Find the table containing the balance sheet data
-    table = soup.find('div', {'class': 'D(tbrg)'})
+def get_expiration_dates(ticker):
+    """Scrapes the expiration dates from each option chain for input ticker
     
-    if table is None:
-        raise ValueError("Could not find balance sheet data on the page")
+       @param: ticker"""
+    
+    site = build_options_url(ticker)
+    
+    session = HTMLSession()
+    resp = session.get(site)
+    
+    soup = BeautifulSoup(resp.content, 'html.parser')
+    session.close()
 
-    rows = table.find_all('div', {'class': 'D(tbr)'})
+    # Find all the option tags within the select tag
+    select_tag = soup.find('select', {'name': 'expirationDates'})
+    
+    if select_tag is None:
+        return []  # Return an empty list if no select tag is found
 
-    # Extract column headers
-    headers = [header.get_text() for header in rows[0].find_all('div', {'class': 'D(ib)'})]
-
-    data = []
-    for row in rows[1:]:
-        cells = row.find_all('div', {'class': 'D(tbc)'})
-        row_data = [cell.get_text() for cell in cells]
-        data.append(row_data)
-
-    df = pd.DataFrame(data, columns=headers)
-
-    return df
+    option_tags = select_tag.find_all('option')
+    
+    # Extract the date values from the option tags
+    dates = [option.get('value') for option in option_tags if option.get('value')]
+    
+    return dates
 
 # Example usage:
-url = 'https://finance.yahoo.com/quote/MSFT/balance-sheet/?p=MSFT'
-balance_sheet_df = scrape_balance_sheet(url)
-print(balance_sheet_df.head())
+ticker = "MSFT"
+expiration_dates = get_expiration_dates(ticker)
+print(expiration_dates)
