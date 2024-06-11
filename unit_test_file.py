@@ -51,8 +51,8 @@ from yahoo_fin import options
 # test = si.get_stats_valuation('AAPL') # quaterly FUND ANALYSIS trends IMP!
 # test = si.get_undervalued_large_caps() # IMPORTANT. you can grab by P/E ratio here?
 # test = si.tickers_dow() # scrapes wikipedia
-test = si.tickers_nasdaq() # ftp://ftp.nasdaqtrader.com/SymbolDirectory/.
-# test = options.get_expiration_dates('MCD')
+# test = si.tickers_nasdaq() # ftp://ftp.nasdaqtrader.com/SymbolDirectory/.
+test = options.get_expiration_dates('MCD')
 # print("{}".format(test))
 
 
@@ -85,4 +85,47 @@ test = si.tickers_nasdaq() # ftp://ftp.nasdaqtrader.com/SymbolDirectory/.
 #   })
 #   return sectors_dataframe
 
-print(si.get_market_sectors_details())
+def get_market_sector_overview(sector_type):
+
+  '''
+  sector_type valid input strings: 
+  basic-materials, consumer-defensive, communication-services, consumer-cyclical, energy, financial-services
+  healthcare, industrials, real-estate, technology, utilities
+  '''
+  site = "https://finance.yahoo.com/sectors/" + sector_type + "/"
+
+  session = HTMLSession()
+  resp = session.get(site)
+  html = resp.html.raw_html.decode()
+
+  sector_info_label = r'<div class="label svelte-e2k9sg">(.*?)</div>'
+  sector_info_value = r'<div class="value svelte-e2k9sg">(.*?)</div>'
+
+  sector_info_label = re.findall(sector_info_label, html)
+  sector_info_value = re.findall(sector_info_value, html)
+
+  sector_overview_dict = dict(zip(sector_info_label, sector_info_value))
+
+  # Close the session
+  session.close()
+  return sector_overview_dict
+
+print(get_market_sector_overview('energy'))
+
+
+def get_market_sector_performance(sector_type):
+  return 
+
+def get_market_sector_industries(sector_type):
+  return 
+
+def get_market_sector_largest_companies(sector_type):
+  return
+
+def get_market_sector_etf_opportunities(sector_type):
+  return
+
+def get_market_sector_mutual_fund_opportunities(sector_type):
+  return
+
+# print(si.get_market_sectors_details())
