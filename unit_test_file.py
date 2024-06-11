@@ -175,4 +175,4 @@ def get_market_sector_etf_opportunities(sector_type):
 def get_market_sector_mutual_fund_opportunities(sector_type):
   return
 
-# print(si.get_market_sectors_details())
+# print(si.get_market_sectors_details('technology'))
